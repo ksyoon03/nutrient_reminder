@@ -1,28 +1,27 @@
 package com.nutrient_reminder.controller;
 
 import com.nutrient_reminder.SupplementRecommenderModel;
+import com.nutrient_reminder.service.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import java.util.Optional;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
 
 public class NutrientCheckController {
 
-    @FXML
-    private GridPane checkboxGrid;
-
-    @FXML
-    private Label userLabel;
+    @FXML private GridPane checkboxGrid;
+    @FXML private Label userLabel;
+    @FXML private Button mainTabButton;
 
     private String username;
 
@@ -35,13 +34,18 @@ public class NutrientCheckController {
 
     @FXML
     public void initialize() {
+        // 만약 setUsername이 호출되기 전이라도, UserSession에 저장된 값이 있으면 가져옴 (안전장치)
+        if (this.username == null && UserSession.getUserId() != null) {
+            setUsername(UserSession.getUserId());
+        }
+
         List<String> symptoms = SupplementRecommenderModel.getAllSymptoms();
 
         // 초성별로 그룹화
         Map<Character, List<String>> groupedSymptoms = groupByInitialConsonant(symptoms);
 
         int row = 0;
-        int columns = 4;
+        int columns = 6;
 
         // 초성 순서대로 출력
         char[] consonants = {'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'};
@@ -67,6 +71,34 @@ public class NutrientCheckController {
             }
             row++;
         }
+    }
+
+    @FXML
+    private void handleMainTab() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/main.fxml"));
+            Parent root = loader.load();
+
+            // 메인 컨트롤러에 현재 사용자 정보 전달
+            MainController mainController = loader.getController();
+            mainController.setUsername(this.username);
+
+            // 화면 전환 (Root 교체 방식)
+            Scene currentScene = mainTabButton.getScene();
+            currentScene.setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "이동 오류", "메인 화면으로 이동할 수 없습니다.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle("알림");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     private Map<Character, List<String>> groupByInitialConsonant(List<String> symptoms) {
@@ -111,33 +143,31 @@ public class NutrientCheckController {
 
     @FXML
     private void onLogoutClick() {
-        // 확인 다이얼로그 생성
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("로그아웃");
         alert.setHeaderText(null);
         alert.setContentText("로그아웃 하시겠습니까?");
 
-        // 버튼 텍스트 한글로 변경
-        ButtonType yesButton = new ButtonType("예");
-        ButtonType noButton = new ButtonType("아니요");
-        alert.getButtonTypes().setAll(yesButton, noButton);
+        Optional<ButtonType> result = alert.showAndWait(); // 버튼 타입 명시 불필요
 
-        // 사용자 응답 처리
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == yesButton) {
-            // "예" 클릭 시 로그인 페이지로 이동
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
+                // UserSession 초기화
+                UserSession.setUserId(null);
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/login-view.fxml"));
                 Parent root = loader.load();
 
-                Stage stage = (Stage) checkboxGrid.getScene().getWindow();
-                stage.setScene(new Scene(root, 750, 600));
+                // 화면 전환
+                Scene currentScene = userLabel.getScene();
+                currentScene.setRoot(root);
+
+                Stage stage = (Stage) currentScene.getWindow();
+                stage.setTitle("로그인");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        // "아니요" 클릭 시 팝업이 자동으로 닫힘
     }
-
 }

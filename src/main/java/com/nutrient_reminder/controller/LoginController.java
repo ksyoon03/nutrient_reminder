@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 import java.io.IOException;
 
+import com.nutrient_reminder.service.UserSession;
 
 public class LoginController {
     @FXML
@@ -78,7 +79,7 @@ public class LoginController {
             if(response.statusCode() == 200){   // 200 = 성공을 의미, 401 = 인증 실패, 500 = 서버 오류
                 System.out.println("로그인 성공");
 
-                // 영양제 추천 페이지로 이동
+                /*// 영양제 추천 페이지로 이동
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/nutrient-check.fxml"));
                 Parent root = loader.load();
 
@@ -86,7 +87,24 @@ public class LoginController {
                 controller.setUsername(username);
 
                 Stage stage = (Stage) idField.getScene().getWindow();
-                stage.setScene(new Scene(root, 750, 600));
+                stage.setScene(new Scene(root, 750, 600));*/
+
+                //UserSession에 아이디 저장!
+                UserSession.setUserId(username);
+
+                // 메인 화면 로드
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/main.fxml"));
+                Parent root = loader.load();
+
+                // 현재 Scene 가져오기
+                Scene currentScene = idField.getScene();
+
+                // Scene의 Root만 교체
+                currentScene.setRoot(root);
+
+                // 타이틀 변경
+                Stage stage = (Stage) currentScene.getWindow();
+                stage.setTitle("영양제 알리미");
             }
             else{
                 System.out.println("로그인 실패" + response.body());
@@ -120,22 +138,14 @@ public class LoginController {
     //++ 회원가입 하이퍼링크 추가
     @FXML
     private void goToSignup(ActionEvent e) throws IOException {
-        // signup.fxml 파일을 불러와 새로운 화면 구성
-        Parent root = FXMLLoader.load(
-                Objects.requireNonNull(
-                        getClass().getResource("/com/nutrient_reminder/view/signup.fxml")
-                )
-        );
+        // 회원가입 화면(뷰) 로드
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nutrient_reminder/view/signup.fxml")));
+        // 현재 버튼이 있는 Scene을 가져옴
+        Scene currentScene = ((Node) e.getSource()).getScene();
+        // Scene의 내용물(Root)만 교체 (창 크기, 전체화면 상태 유지됨)
+        currentScene.setRoot(root);
 
-        // 현재 창(Stage)을 가져와 화면 전환
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-
-        // 새 Scene 설정 및 타이틀 변경
-        stage.setScene(new Scene(root));
+        Stage stage = (Stage) currentScene.getWindow();
         stage.setTitle("회원가입");
-
-        // 화면 표시
-        stage.show();
     }
-
 }
