@@ -122,16 +122,18 @@ public class SignupController {
 
     // ++ 로그인 화면으로 이동
     private void navigateToLogin() {
-        // login-view.fxml 파일 불러오기
         try {
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("/com/nutrient_reminder/view/login-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/nutrient_reminder/view/login-view.fxml"));
 
-            // 현재 Stage 창 객체 가져오기
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            // 현재 Scene 가져오기 (usernameField가 화면에 있으므로 이를 통해 가져옴)
+            Scene currentScene = usernameField.getScene();
+
+            // 내용물만 교체
+            currentScene.setRoot(root);
+
+            Stage stage = (Stage) currentScene.getWindow();
             stage.setTitle("로그인");
-            stage.show(); // 새 화면 표시
+
         } catch (Exception ex) {
             ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "화면 전환 오류", "로그인 화면으로 이동할 수 없습니다.");
@@ -204,10 +206,11 @@ public class SignupController {
             Parent root = FXMLLoader.load(
                     getClass().getResource("/com/nutrient_reminder/view/login-view.fxml"));
 
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();    //현재 Stage 창 객체 가져오기
-            stage.setScene(new Scene(root));    // 새로운 Scene(로그인 화면) 설정
+            Scene currentScene = ((Node) e.getSource()).getScene();
+            currentScene.setRoot(root);
+
+            Stage stage = (Stage) currentScene.getWindow();
             stage.setTitle("로그인");
-            stage.show(); // 새 화면 표시
 
         } catch (Exception ex) {
             ex.printStackTrace();
