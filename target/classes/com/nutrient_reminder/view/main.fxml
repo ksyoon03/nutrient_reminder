@@ -43,10 +43,14 @@
                 </font>
             </Button>
 
+<<<<<<< HEAD
             <Button fx:id="recommendTabButton" mnemonicParsing="false" onAction="#handleRecommendTab"
                     onMouseEntered="#onHoverEnter"
                     onMouseExited="#onHoverExit"
                     style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-cursor: hand;" text="영양제 추천" textFill="#999999">
+=======
+            <Button fx:id="recommendTabButton" mnemonicParsing="false" onAction="#handleRecommendTab" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-cursor: hand;" text="영양제 추천" textFill="#999999">
+>>>>>>> 05f93a66bdedda8524cade24b0f7b058938444b3
                 <font>
                     <Font size="16.0" />
                 </font>
