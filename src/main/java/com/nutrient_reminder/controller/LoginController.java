@@ -92,7 +92,6 @@ public class LoginController {
                 //UserSession에 아이디 저장!
                 UserSession.setUserId(username);
 
-<<<<<<< HEAD
                 // 이동할 화면을 'main.fxml'로 변경
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/main.fxml"));
                 Parent root = loader.load();
@@ -104,21 +103,6 @@ public class LoginController {
                 stage.show();
 
 
-=======
-                // 메인 화면 로드
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/main.fxml"));
-                Parent root = loader.load();
-
-                // 현재 Scene 가져오기
-                Scene currentScene = idField.getScene();
-
-                // Scene의 Root만 교체
-                currentScene.setRoot(root);
-
-                // 타이틀 변경
-                Stage stage = (Stage) currentScene.getWindow();
-                stage.setTitle("영양제 알리미");
->>>>>>> 05f93a66bdedda8524cade24b0f7b058938444b3
             }
             else{
                 System.out.println("로그인 실패" + response.body());
@@ -152,14 +136,22 @@ public class LoginController {
     //++ 회원가입 하이퍼링크 추가
     @FXML
     private void goToSignup(ActionEvent e) throws IOException {
-        // 회원가입 화면(뷰) 로드
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nutrient_reminder/view/signup.fxml")));
-        // 현재 버튼이 있는 Scene을 가져옴
-        Scene currentScene = ((Node) e.getSource()).getScene();
-        // Scene의 내용물(Root)만 교체 (창 크기, 전체화면 상태 유지됨)
-        currentScene.setRoot(root);
+        // signup.fxml 파일을 불러와 새로운 화면 구성
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(
+                        getClass().getResource("/com/nutrient_reminder/view/signup.fxml")
+                )
+        );
 
-        Stage stage = (Stage) currentScene.getWindow();
+        // 현재 창(Stage)을 가져와 화면 전환
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+        // 새 Scene 설정 및 타이틀 변경
+        stage.setScene(new Scene(root));
         stage.setTitle("회원가입");
+
+        // 화면 표시
+        stage.show();
     }
+
 }

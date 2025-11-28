@@ -109,40 +109,12 @@ public class MainController {
                     getClass().getResource("/com/nutrient_reminder/view/login-view.fxml")
             );
             Parent root = loader.load();
-<<<<<<< HEAD
             Stage stage = (Stage) userNameLabel.getScene().getWindow();
             stage.setScene(new Scene(root, 800, 600));
-=======
-
-            Scene currentScene = userNameLabel.getScene();
-            currentScene.setRoot(root);
-
-            Stage stage = (Stage) currentScene.getWindow();
->>>>>>> 05f93a66bdedda8524cade24b0f7b058938444b3
             stage.setTitle("로그인");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-    @FXML
-    //
-    private void handleRecommendTab() {
-        System.out.println("영양제 추천 탭 클릭됨");
-        try {
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/nutrient_reminder/view/nutrient-check.fxml")
-            );
-            Parent root = loader.load();
-
-            // 현재 창을 가져와서 화면 교체
-            Scene currentScene = recommendTabButton.getScene();
-            currentScene.setRoot(root);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("영양제 추천 화면으로 이동 실패");
         }
     }
 
