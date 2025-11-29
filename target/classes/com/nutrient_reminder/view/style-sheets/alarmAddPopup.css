@@ -5,16 +5,33 @@
     -fx-font-size: 15px;
     -fx-cursor: hand;
 
-
     -fx-min-width: 35px;
+    -fx-pref-width: 35px;
     -fx-padding: 5 0;
     -fx-alignment: CENTER;
+
+    -fx-border-color: #CCCCCC; /* 기본 상태 테두리 */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5;
 }
 
-/*요일 버튼이 선택되었을 때 상태 */
+/* 💡 요일 버튼 마우스 오버 시 (선택되지 않은 상태와 동일한 효과) */
+.day-btn:hover {
+    -fx-background-color: #F8F8F8; /* 아주 연한 배경 */
+    -fx-background-radius: 5;
+}
+
+/* 💡 요일 버튼이 선택되었을 때 상태 */
 .day-btn:selected {
     -fx-background-color: transparent;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #333333;
     -fx-font-weight: bold;
     -fx-underline: false;
+    -fx-border-color: #B0E0E6; /* 연한 민트색 테두리 */
+    -fx-border-width: 2px;
+}
+
+/* 💡 선택된 상태에서 마우스를 올렸을 때: 선택된 스타일을 유지하면서 hover 스타일 적용 (선택된 테두리가 가장 우선하도록) */
+.day-btn:selected:hover {
+    -fx-background-color: #E8F5FF; /* 선택된 상태에서 hover 시, 연한 파란색 배경을 주어 강조 */
 }
