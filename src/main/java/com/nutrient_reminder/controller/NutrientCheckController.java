@@ -247,25 +247,11 @@ public class NutrientCheckController {
     // 로그아웃 버튼 처리
     @FXML
     private void onLogoutClick() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("로그아웃");
-        alert.setHeaderText(null);
-        alert.setContentText("로그아웃 하시겠습니까?");
+        // 현재 화면의 Stage 가져오기
+        Stage stage = (Stage) checkboxGrid.getScene().getWindow();
 
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                UserSession.clear(); // 세션 초기화
-                // 로그인 화면으로 이동
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nutrient_reminder/view/login-view.fxml"));
-                Parent root = loader.load();
-                Scene currentScene = checkboxGrid.getScene();
-                currentScene.setRoot(root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        // 로그아웃 클래스 사용
+        LogoutPopupController.handleLogout(stage);
     }
 
     // 상단 탭 버튼 클릭 처리

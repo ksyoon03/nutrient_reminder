@@ -51,7 +51,7 @@ public class SupplementRecommenderModel {
         YOUNG_YANG.put("혈중 중성지방", List.of("오메가3"));
         YOUNG_YANG.put("혈행 개선 (순환)", List.of("오메가3", "달맞이꽃종자유"));
         YOUNG_YANG.put("관절 통증", List.of("MSM"));
-        YOUNG_YANG.put("뼈 건강 (골다공증)", List.of("비타민 D", "칼슘", "마그네슘"));
+        YOUNG_YANG.put("골다공증", List.of("비타민 D", "칼슘", "마그네슘"));
         YOUNG_YANG.put("근육 떨림/경련", List.of("마그네슘"));
         YOUNG_YANG.put("빈혈/어지러움", List.of("철분", "엽산"));
         YOUNG_YANG.put("면역력 저하", List.of("아연", "비타민 C", "비타민 D", "유산균"));
@@ -91,48 +91,48 @@ public class SupplementRecommenderModel {
         // (addNutrientInfo 메서드가 각각의 맵에 데이터를 나눠서 담습니다)
         // ====================================================================
         addNutrientInfo("철분",
-                "비타민 C (흡수율 ↑)",
-                "칼슘, 마그네슘, 아연, 녹차, 커피 (흡수 경쟁)",
-                "공복 섭취 권장 (위장 장애 시 식후)");
+                "비타민 C",
+                "칼슘, 마그네슘, 아연",
+                "공복 섭취 권장");
 
         addNutrientInfo("칼슘",
-                "비타민 D (흡수율 ↑), 마그네슘 (균형 유지)",
-                "철분 (1시간 간격 필요), 인 (가공식품)",
+                "비타민 D, 마그네슘",
+                "철분,",
                 "식사 직후 권장");
 
         addNutrientInfo("마그네슘",
-                "비타민 B6, 칼슘 (2:1 비율 권장)",
-                "철분 (고용량 시 경쟁)",
-                "저녁 식후 또는 취침 전 (이완 작용)");
+                "비타민 B6, 칼슘",
+                "철분",
+                "저녁 식후 또는 취침 전");
 
         addNutrientInfo("아연",
-                "비타민 A (대사 도움)",
-                "철분, 칼슘 (고용량 시 흡수 저하)",
-                "식사 중/식후 (공복 시 위장장애)");
+                "비타민 A",
+                "철분, 칼슘",
+                "식사 중/식후");
 
         addNutrientInfo("비타민 D",
-                "칼슘, 마그네슘, 오메가3 (지방과 함께)",
+                "칼슘, 마그네슘, 오메가3",
                 "특별한 상극 없음",
-                "점심/저녁 식후 (지방질과 함께)");
+                "점심/저녁 식후");
 
         addNutrientInfo("비타민 E",
-                "오메가3 (산패 방지), 비타민 C (항산화)",
-                "고용량 비타민 K (혈액응고 관련 시)",
+                "오메가3, 비타민 C",
+                "고용량 비타민 K",
                 "식후 섭취");
 
         addNutrientInfo("비타민 A",
-                "아연 (혈중 농도 유지)",
-                "루테인 (고용량 중복 주의)",
+                "아연",
+                "루테인",
                 "식후 섭취");
 
         addNutrientInfo("오메가3",
                 "비타민 E, 비타민 D, 루테인",
-                "키토산 (지방 흡수 방해)",
-                "식후 섭취 (비린내 방지)");
+                "키토산",
+                "식후 섭취");
 
         addNutrientInfo("루테인",
-                "오메가3 (흡수율 ↑), 비타민 A",
-                "특별한 상극 없음",
+                "오메가3",
+                "비타민 A",
                 "아침 식후 권장");
 
         addNutrientInfo("달맞이꽃종자유",
@@ -143,7 +143,7 @@ public class SupplementRecommenderModel {
         // 비타민 B군은 종류가 많지만 내용은 동일하게 적용
         String bGroupGood = "서로 함께 섭취 (B군 복합제), 아연";
         String bGroupBad = "특별한 상극 없음";
-        String bGroupTime = "아침/점심 식후 동시 섭취 추천 (활력 증진 ⚡)";
+        String bGroupTime = "아침/점심 식후 동시 섭취 추천";
 
         addNutrientInfo("비타민 B군", bGroupGood, bGroupBad, bGroupTime);
         addNutrientInfo("비타민 B1", bGroupGood, bGroupBad, bGroupTime);
@@ -154,27 +154,27 @@ public class SupplementRecommenderModel {
 
         addNutrientInfo("비타민 C",
                 "철분, MSM, 비타민 E",
-                "특별한 상극 없음",
-                "식중/식후 (공복 시 속쓰림)");
+                "유산균",
+                "식중/식후");
 
         addNutrientInfo("유산균",
                 " ",
-                "항생제 (2~3시간 간격 필요), 프로폴리스 (유산균 사멸)",
+                "비타민C, 항생제, 프로폴리스",
                 "아침 공복 또는 식전");
 
         addNutrientInfo("밀크씨슬",
-                "비타민 B군 (에너지 대사 시너지)",
+                "비타민 B군",
                 "특별한 상극 없음",
-                "저녁 식후 (간 회복)");
+                "저녁 식후");
 
         addNutrientInfo("MSM",
-                "비타민 C (콜라겐 합성 시너지)",
+                "비타민 C",
                 "특별한 상극 없음",
-                "식후 (에너지 부스팅)");
+                "식후");
 
         addNutrientInfo("테아닌",
-                "마그네슘 (진정 효과 시너지)",
-                "카페인 (길항 작용으로 효과 ↓)",
+                "마그네슘",
+                "카페인",
                 "스트레스 받을 때 또는 자기 전");
 
         addNutrientInfo("가르시니아",
@@ -185,7 +185,7 @@ public class SupplementRecommenderModel {
         addNutrientInfo("홍경천",
                 "테아닌, 마그네슘",
                 "특별한 상극 없음",
-                "오전/낮 (피로 개선)");
+                "오전/낮");
 
         addNutrientInfo("포스파티딜세린",
                 "오메가3, 비타민 E",
@@ -195,7 +195,7 @@ public class SupplementRecommenderModel {
         addNutrientInfo("히알루론산",
                 "콜라겐, 비타민 C",
                 "특별한 상극 없음",
-                "식후 섭취 (수분 유지)");
+                "식후 섭취");
 
 
         // ==========================================
